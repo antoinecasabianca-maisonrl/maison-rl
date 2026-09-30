@@ -1,0 +1,183 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-creme: #f3f0e6;
+  --color-creme-2: #e9e4d4;
+  --color-noir: #0a0a0a;
+  --color-jaune: #ffd500;
+  --color-gris: #6f6a5e;
+  --font-display: 'Anton', 'Impact', 'Arial Narrow', sans-serif;
+  --font-sans: 'Montserrat Variable', 'Montserrat', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    margin: 0;
+    background-color: var(--color-creme);
+    color: var(--color-noir);
+    font-family: var(--font-sans);
+    overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+  }
+  button {
+    cursor: pointer;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  input,
+  textarea,
+  select {
+    font-size: 16px; /* évite le zoom auto sur iOS */
+  }
+}
+
+@layer components {
+/* Grain papier léger, façon carte imprimée */
+.paper {
+  background-color: var(--color-creme);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.04  0 0 0 0 0.04  0 0 0 0 0.04  0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.paper-dark {
+  background-color: var(--color-noir);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.paper-yellow {
+  background-color: var(--color-jaune);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.04  0 0 0 0 0.04  0 0 0 0 0.04  0 0 0 .08 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Trames */
+.dots {
+  background-image: radial-gradient(currentColor 1.6px, transparent 1.8px);
+  background-size: 12px 12px;
+}
+.dots-lg {
+  background-image: radial-gradient(currentColor 3px, transparent 3.3px);
+  background-size: 18px 18px;
+}
+.stripes {
+  background-image: repeating-linear-gradient(-45deg, currentColor 0 6px, transparent 6px 14px);
+}
+.lines {
+  background-image: repeating-linear-gradient(0deg, currentColor 0 1px, transparent 1px 8px);
+}
+
+.screen {
+  min-height: 100dvh;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.display {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: 0.005em;
+}
+
+.label {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+}
+
+/* Animations : courtes, 200–300 ms */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sheet {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.anim-rise {
+  animation: rise 260ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.anim-pop {
+  animation: pop 240ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.anim-fade {
+  animation: fade 220ms ease-out both;
+}
+.anim-slide {
+  animation: slide-in 260ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.anim-sheet {
+  animation: sheet 260ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.anim-bump {
+  animation: bump 300ms ease-out 180ms both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .anim-rise,
+  .anim-pop,
+  .anim-fade,
+  .anim-slide,
+  .anim-sheet,
+  .anim-bump {
+    animation: none;
+  }
+}
